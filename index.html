@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hệ Thống Quản Lý Cao Su - Chi Tiết Nghiệp Vụ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            200: '#bbf7d0',
+                            300: '#86efac',
+                            400: '#4ade80',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                        },
+                        success: '#10B981',
+                        danger: '#EF4444',
+                        warning: '#F59E0B',
+                        app: '#F8FAFC',
+                    },
+                    boxShadow: {
+                        'card': '0 1px 3px rgba(0,0,0,0.08)',
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style type="text/tailwindcss">
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', system-ui, sans-serif; scroll-behavior: smooth; }
+        .sidebar-link { @apply flex items-center px-4 py-3 text-gray-500 hover:bg-primary-50 hover:text-primary-600 transition-colors duration-200 border-l-4 border-transparent; }
+        .sidebar-link.active { @apply bg-primary-50 border-primary-600 text-primary-700 font-medium; }
+        .section-card { @apply bg-white rounded-xl mb-8 p-6 md:p-8 border-t-4 border-success; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+        .step-number { @apply flex items-center justify-center w-8 h-8 rounded-full bg-primary-50 text-primary-600 font-bold text-sm mr-4; }
+        table { @apply w-full border-collapse; }
+        th { @apply bg-gray-50 text-gray-700 font-semibold p-4 text-left border-b border-gray-200; }
+        td { @apply p-4 border-b border-gray-100 text-gray-600; }
+        .icon-box { @apply p-3 bg-primary-50 rounded-lg text-primary-600 mr-4 flex-shrink-0; }
+    </style>
+</head>
+
+<body class="bg-app text-gray-800">
+    <div class="flex min-h-screen">
+        <!-- Sidebar Navigation -->
+        <aside class="w-72 bg-white border-r border-gray-200 sticky top-0 h-screen overflow-y-auto hidden lg:block">
+            <div class="p-6 border-b border-gray-100 bg-primary-600">
+                <h1 class="text-white font-bold text-xl leading-tight">ECOTECH 2A - EUDR</h1>
+                <p class="text-primary-100 text-[11px] mt-1 uppercase tracking-wider font-medium">Hệ thống truy vết &
+                    Sản xuất</p>
+            </div>
+            <nav class="py-4">
+                <a href="#structure" class="sidebar-link active"><i class="fa-solid fa-tree w-5 text-center mr-3"></i>
+                    Cấu trúc vườn cây</a>
+                <a href="#personnel" class="sidebar-link"><i class="fa-solid fa-users w-5 text-center mr-3"></i> Quản lý
+                    nhân sự</a>
+                <a href="#tree-age" class="sidebar-link"><i class="fa-solid fa-calendar-check w-5 text-center mr-3"></i>
+                    Tuổi thọ & Chu kỳ</a>
+                <a href="#harvest-session" class="sidebar-link"><i class="fa-solid fa-rotate w-5 text-center mr-3"></i>
+                    Phiên khai thác</a>
+                <a href="#recording" class="sidebar-link"><i
+                        class="fa-solid fa-clipboard-check w-5 text-center mr-3"></i> Ghi nhận sản lượng</a>
+                <a href="#logistics" class="sidebar-link"><i class="fa-solid fa-truck-moving w-5 text-center mr-3"></i>
+                    Vận chuyển & Xưởng</a>
+                <a href="#quality" class="sidebar-link"><i class="fa-solid fa-flask-vial w-5 text-center mr-3"></i> Kiểm
+                    thử & Quy khô</a>
+                <a href="#storage" class="sidebar-link"><i class="fa-solid fa-warehouse w-5 text-center mr-3"></i> Lưu
+                    trữ mủ</a>
+                <a href="#production" class="sidebar-link"><i class="fa-solid fa-industry w-5 text-center mr-3"></i> Sản
+                    xuất & Lương</a>
+                <a href="#workflow" class="sidebar-link"><i class="fa-solid fa-route w-5 text-center mr-3"></i> Quy
+                    trình tổng quan</a>
+                <a href="#traceability" class="sidebar-link"><i
+                        class="fa-solid fa-clock-rotate-left w-5 text-center mr-3"></i> Truy xuất nguồn gốc</a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 p-4 lg:p-12 max-w-5xl mx-auto">
+            <!-- Header -->
+            <header class="mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 mb-3">Mô Tả Nghiệp Vụ Hệ Thống</h2>
+                <div class="text-gray-500 mb-4">Tài liệu tham khảo nghiệp vụ quy trình quản lý chất lượng và theo dõi
+                    vườn cao su.</div>
+                <div class="h-1 w-20 bg-primary-600 rounded-full"></div>
+            </header>
+
+            <!-- 01. Cấu trúc vườn cây -->
+            <section id="structure" class="section-card">
+                <div class="flex items-center mb-6">
+                    <div class="icon-box">
+                        <i class="fa-solid fa-map-location-dot text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900">1. Cấu trúc phân cấp đất trồng</h3>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-6">
+                    <div class="bg-gray-50 p-5 rounded-xl border border-gray-200">
+                        <p class="font-semibold text-primary-700 mb-1 text-sm uppercase tracking-wide">Cấp Công ty</p>
+                        <p class="text-gray-600 text-sm">Tổng diện tích tối đa <span
+                                class="font-semibold text-gray-900">10.000 Ha</span> theo quy định pháp luật.</p>
+                    </div>
+                    <div class="bg-gray-50 p-5 rounded-xl border border-gray-200">
+                        <p class="font-semibold text-primary-700 mb-1 text-sm uppercase tracking-wide">Cấp Đội (Vườn)
+                        </p>
+                        <p class="text-gray-600 text-sm">Diện tích mỗi đội không quá <span
+                                class="font-semibold text-gray-900">2.000 Ha</span>, nằm tại các vị trí địa lý khác
+                            nhau.</p>
+                    </div>
+                </div>
+                <div class="space-y-3 text-gray-700">
+                    <div class="flex items-start">
+                        <i class="fa-solid fa-caret-right text-primary-500 mt-1 mr-3"></i>
+                        <p><strong>Lô:</strong> Mỗi đội chia thành nhiều lô, mỗi lô tiêu chuẩn là <strong>25
+                                Ha</strong>.</p>
+                    </div>
+                    <div class="flex items-start">
+                        <i class="fa-solid fa-caret-right text-primary-500 mt-1 mr-3"></i>
+                        <p><strong>Phần cây:</strong> Trong lô chia nhỏ thành các phần. Mỗi phần có khoảng <strong>450 -
+                                750 cây</strong> tùy cách chia.</p>
+                    </div>
+                    <div class="flex items-start">
+                        <i class="fa-solid fa-caret-right text-primary-500 mt-1 mr-3"></i>
+                        <p><strong>Cá nhân phụ trách:</strong> Mỗi phần cây do <strong>01 công nhân</strong> duy nhất
+                            chịu trách nhiệm khai thác.</p>
+                    </div>
+                </div>
+                <div
+                    class="mt-8 bg-gray-50 border border-gray-200 text-gray-600 p-5 rounded-xl flex justify-between items-center overflow-x-auto text-sm">
+                    <span class="whitespace-nowrap">Cây</span> <i
+                        class="fa-solid fa-chevron-right text-gray-300 mx-2"></i>
+                    <span class="whitespace-nowrap">Phần cây</span> <i
+                        class="fa-solid fa-chevron-right text-gray-300 mx-2"></i>
+                    <span class="whitespace-nowrap">Lô</span> <i
+                        class="fa-solid fa-chevron-right text-gray-300 mx-2"></i>
+                    <span class="whitespace-nowrap">Đội (Vườn)</span> <i
+                        class="fa-solid fa-chevron-right text-primary-400 mx-2"></i>
+                    <span class="whitespace-nowrap font-bold text-primary-700">Công ty</span>
+                </div>
+            </section>
+
+            <!-- 02. Quản lý nhân sự -->
+            <section id="personnel" class="section-card">
+                <div class="flex items-center mb-6">
+                    <div class="icon-box">
+                        <i class="fa-solid fa-users-gear text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900">2. Mô tả nhân sự khai thác</h3>
+                </div>
+                <div class="space-y-5">
+                    <div class="p-5 border border-gray-200 rounded-xl">
+                        <h4 class="font-semibold text-gray-900 mb-3">Ban điều hành Đội:</h4>
+                        <ul class="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm text-gray-700">
+                            <li class="flex items-center"><i class="fa-solid fa-user-tie text-gray-400 mr-2"></i> Đội
+                                trưởng</li>
+                            <li class="flex items-center"><i class="fa-solid fa-user-pen text-gray-400 mr-2"></i> Đội
+                                phó</li>
+                            <li class="flex items-center"><i class="fa-solid fa-calculator text-gray-400 mr-2"></i> Kế
+                                toán</li>
+                            <li class="flex items-center"><i class="fa-solid fa-microscope text-gray-400 mr-2"></i> Kỹ
+                                thuật viên</li>
+                        </ul>
+                    </div>
+
+                    <div class="p-5 bg-gray-50 border border-gray-200 rounded-xl">
+                        <h4 class="font-semibold text-gray-900 mb-3">Cấp Nhóm (Quản lý trực tiếp):</h4>
+                        <p class="text-gray-600 mb-3 text-sm">Để tối ưu việc giám sát, mỗi Đội chia thành các
+                            <strong>Nhóm nhỏ</strong>:
+                        </p>
+                        <ul class="space-y-3 text-sm text-gray-700">
+                            <li class="flex items-start">
+                                <i class="fa-solid fa-star text-warning mt-1 mr-3"></i>
+                                <span><strong>Nhóm trưởng:</strong> Phụ trách điều hành một cụm công nhân, theo dõi việc
+                                    thực hiện lô/phần cây của nhóm mình.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa-solid fa-user-group text-primary-500 mt-1 mr-3"></i>
+                                <span><strong>Công nhân:</strong> Thực hiện khai thác trên các phần cây được giao dưới
+                                    sự
+                                    quản lý của Nhóm trưởng.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mt-6 flex justify-center items-center gap-3 text-gray-500 text-sm font-medium">
+                    <span class="bg-gray-100 px-3 py-1 rounded">Công nhân</span>
+                    <i class="fa-solid fa-arrow-right text-gray-300"></i>
+                    <span class="bg-gray-100 px-3 py-1 rounded">Nhóm</span>
+                    <i class="fa-solid fa-arrow-right text-gray-300"></i>
+                    <span class="bg-primary-50 text-primary-700 px-3 py-1 rounded border border-primary-100">Đội</span>
+                </div>
+            </section>
+
+            <!-- 03. Tuổi thọ cây -->
+            <section id="tree-age" class="section-card">
+                <div class="flex items-center mb-6">
+                    <div class="icon-box">
+                        <i class="fa-solid fa-seedling text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900">3. Tuổi thọ & Khả năng khai thác</h3>
+                </div>
+                <p class="text-gray-600 mb-6 text-sm leading-relaxed">
+                    Tuổi của cây là dữ liệu cốt lõi để quyết định phương án khai thác. Thường một vòng đời cây cao su
+                    kéo dài <strong>25 năm</strong>. Nhóm các cây cùng độ tuổi sẽ được quản lý theo từng Lô hoặc Phần
+                    Lô.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="p-5 border border-gray-200 rounded-xl">
+                        <i class="fa-solid fa-magnifying-glass text-gray-400 mb-2"></i>
+                        <p class="text-xs text-gray-400 uppercase font-semibold mb-1">Kiểm soát</p>
+                        <p class="text-sm font-medium text-gray-800">Cây đủ tuổi mở cạo chưa?</p>
+                    </div>
+                    <div class="p-5 border border-gray-200 rounded-xl">
+                        <i class="fa-solid fa-chart-line text-gray-400 mb-2"></i>
+                        <p class="text-xs text-gray-400 uppercase font-semibold mb-1">Theo dõi</p>
+                        <p class="text-sm font-medium text-gray-800">Đã khai thác được mấy năm?</p>
+                    </div>
+                    <div class="p-5 border border-gray-200 rounded-xl">
+                        <i class="fa-solid fa-scissors text-gray-400 mb-2"></i>
+                        <p class="text-xs text-gray-400 uppercase font-semibold mb-1">Thanh lý</p>
+                        <p class="text-sm font-medium text-gray-800">Cây già, cần chặt trồng mới?</p>
+                    </div>
+                </div>
+                <div class="mt-5 text-sm text-gray-500 bg-gray-50 p-3 rounded-lg flex items-start">
+                    <i class="fa-solid fa-circle-info text-primary-400 mt-1 mr-2"></i>
+                    <p>Tuổi cây ảnh hưởng trực tiếp đến: Sản lượng, Chất lượng mủ và Mức độ khai thác (D2/D3).</p>
+                </div>
+            </section>
+
+            <!-- 04. Phiên khai thác -->
+            <section id="harvest-session" class="section-card">
+                <div class="flex items-center mb-6">
+                    <div class="icon-box">
+                        <i class="fa-solid fa-calendar-days text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900">4. Phiên khai thác (D2, D3...) & Mùa vụ</h3>
+                </div>
+
+                <!-- Cảnh báo mùa vụ rụng lá -->
+                <div class="mb-5 p-4 border-l-4 border-warning bg-warning/10 rounded-r-xl">
+                    <div class="flex items-start">
+                        <i class="fa-solid fa-leaf text-warning mt-0.5 mr-3"></i>
+                        <div>
+                            <p class="font-semibold text-gray-900 mb-1 leading-tight">Chu kỳ rụng lá (Nghỉ cạo):</p>
+                            <p class="text-sm text-gray-700">Từ <strong>tháng 1 đến tháng 3</strong> hàng năm là mùa cao
+                                su rụng lá để ra lá mới nên không thể cạo mủ vào mùa này. Thông thường, công nhân chỉ
+                                khai thác từ <strong>tháng 4 đến tháng 1 hoặc 2 năm sau</strong> (tùy vào vườn cây thay
+                                lá sớm hay muộn).</p>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="text-gray-600 mb-6 text-sm leading-relaxed">Trong mùa vụ, cây cao su cần thời gian tái tạo mủ.
+                    Hệ thống quản
+                    lý việc luân phiên các lô để đảm bảo ngày nào công nhân cũng có việc làm nhưng cây vẫn được nghỉ
+                    ngơi phục hồi đủ.</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
+                    <div class="bg-gray-50 p-5 rounded-xl border border-gray-200 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center mb-3">
+                                <div class="px-2 py-1 bg-primary-100 text-primary-700 rounded text-xs font-bold mr-3">D2
+                                </div>
+                                <span class="text-gray-900 font-semibold text-sm">Cơ chế luân phiên (Theo nhóm)</span>
+                            </div>
+                            <p class="text-sm text-gray-600 leading-relaxed mb-4">
+                                <strong>Vòng lặp:</strong> 2 ngày lấy mủ 1 lần. Ví dụ Đội có 4 lô. Ngày 1: Lô 1 & 2.
+                                Ngày 2: Lô 3 & 4. Ngày 3: Quay lại lô 1 & 2.
+                            </p>
+                        </div>
+                        <div class="pt-3 border-t border-gray-200">
+                            <p class="text-xs text-gray-600 font-semibold mb-1">
+                                <i class="fa-solid fa-users text-primary-500 mr-1"></i> Khai thác theo nhóm:
+                            </p>
+                            <p class="text-xs text-gray-500">Đội được chia nhỏ, <strong>mỗi nhóm sẽ có một phiên khai
+                                    thác ở những lô tương ứng</strong>. Mỗi nhóm sẽ hoàn toàn chịu trách nhiệm cho các
+                                lô và phiên khai thác của mình.</p>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 p-5 rounded-xl border border-gray-200">
+                        <div class="flex items-center mb-3">
+                            <div class="p-2 bg-gray-200 text-gray-600 rounded mr-3">
+                                <i class="fa-solid fa-chart-pie text-sm"></i>
+                            </div>
+                            <span class="text-gray-900 font-semibold text-sm">Tần suất tháng</span>
+                        </div>
+                        <p class="text-sm text-gray-600 leading-relaxed">
+                            Máy chủ tính toán số lần cạo dựa trên lịch phiên, giúp kiểm soát cường độ, tránh vắt kiệt
+                            sức cây.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 05. Ghi nhận sản lượng -->
+            <section id="recording" class="section-card">
+                <div class="flex items-center mb-6">
+                    <div class="icon-box">
+                        <i class="fa-solid fa-weight-scale text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900">5. Quy trình ghi nhận & Tập kết</h3>
+                </div>
+                <div class="space-y-4">
+                    <div class="flex items-start p-5 bg-white border border-gray-200 rounded-xl">
+                        <i class="fa-solid fa-warehouse mt-0.5 text-primary-500 w-6 text-center mr-3"></i>
+                        <div>
+                            <p class="font-semibold text-gray-900 mb-1 leading-tight">Ga thu hoạch</p>
+                            <p class="text-sm text-gray-600">Đội tổ chức các Ga ứng với từng Nhóm. Công nhân tập kết và
+                                cân mủ tại Ga tương ứng vào cuối ngày.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start p-5 bg-white border border-gray-200 rounded-xl">
+                        <i class="fa-solid fa-droplet mt-0.5 text-primary-500 w-6 text-center mr-3"></i>
+                        <div class="w-full">
+                            <p class="font-semibold text-gray-900 mb-2 leading-tight">Phân loại mủ</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-2">
+                                <div class="text-sm p-3 bg-gray-50 rounded-lg border border-gray-200 flex items-center">
+                                    <div class="w-2 h-2 rounded-full bg-primary-400 mr-2"></div>
+                                    <span><strong>Mủ nước:</strong> Dạng lỏng tươi</span>
+                                </div>
+                                <div class="text-sm p-3 bg-gray-50 rounded-lg border border-gray-200 flex items-center">
+                                    <div class="w-2 h-2 rounded-full bg-gray-400 mr-2"></div>
+                                    <span><strong>Mủ đông:</strong> Chén, dây, tạp</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-5 text-sm">
+                    <span class="text-gray-500 mr-2">Nguyên tắc cộng dồn sản lượng:</span>
+                    <span class="font-medium text-gray-800">Công nhân → Nhóm → Đội → Xưởng</span>
+                </div>
+            </section>
+
+            <!-- 06. Vận chuyển -->
+            <section id="logistics" class="section-card">
+                <div class="flex items-center mb-6">
+                    <div class="icon-box">
+                        <i class="fa-solid fa-truck-ramp-box text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900">6. Booking & Vận chuyển</h3>
+                </div>
+                <div class="flex flex-col md:flex-row gap-4 items-stretch">
+                    <div class="flex-1 p-5 border border-gray-200 rounded-xl bg-gray-50 flex flex-col justify-center">
+                        <p class="font-semibold text-gray-900 mb-2 flex items-center"><i
+                                class="fa-solid fa-users text-gray-400 mr-2"></i> Ban điều hành Đội</p>
+                        <p class="text-sm text-gray-600">Thực hiện <strong>Booking xe</strong>. Chỉ định rõ tuyến xe tới
+                            Ga theo sản lượng thực tế.</p>
+                    </div>
+                    <div class="flex items-center justify-center text-primary-400">
+                        <i class="fa-solid fa-arrow-right-arrow-left text-xl hidden md:block"></i>
+                        <i class="fa-solid fa-arrow-down-up-across-line text-xl md:hidden py-2"></i>
+                    </div>
+                    <div class="flex-1 p-5 border border-gray-200 rounded-xl bg-gray-50 flex flex-col justify-center">
+                        <p class="font-semibold text-gray-900 mb-2 flex items-center"><i
+                                class="fa-solid fa-industry text-gray-400 mr-2"></i> Bộ phận Xưởng</p>
+                        <p class="text-sm text-gray-600">Thực hiện <strong>Điều phối xe</strong> xuống các Ga để thu gom
+                            theo các booking được tạo.</p>
+                    </div>
+                </div>
+                <p class="text-xs text-gray-500 mt-4"><i class="fa-solid fa-circle-info mr-1"></i> Xe có thể ghé nhiều
+                    Ga của nhiều Đội nếu dư tải trọng.</p>
+            </section>
+
+            <!-- 07. Kiểm thử -->
+            <section id="quality" class="section-card">
+                <div class="flex items-center mb-6">
+                    <div class="icon-box">
+                        <i class="fa-solid fa-vial-circle-check text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900">7. Cân trạm & Kiểm thử Quy khô (DRC)</h3>
+                </div>
+
+                <div class="mb-5 p-4 border-l-2 border-primary-500 bg-white shadow-sm text-sm text-gray-700">
+                    <p class="mb-1 text-gray-900 font-semibold">Cân kiểm chứng tại xưởng:</p>
+                    <p>Mủ chở về sẽ được trạm cân lại để ghi nhận chênh lệch hao hụt trên đường so với số Đội báo, làm
+                        số liệu chốt chính thức về từng Đội và Nhóm.</p>
+                </div>
+
+                <div class="bg-gray-50 p-5 rounded-xl border border-gray-200">
+                    <p class="font-semibold text-gray-900 mb-2">Định nghĩa Quy khô:</p>
+                    <p class="text-sm text-gray-600 leading-relaxed italic mb-3">
+                        "Là tỷ lệ phần trăm mủ nguyên chất còn lại sau khi loại bỏ tạp chất và nước (thường qua phương
+                        pháp đốt mẫu).
+                        Ví dụ: 100kg mủ tươi -> Đốt còn 45kg mủ nguyên chất -> <strong>Quy khô 45%</strong>."
+                    </p>
+                    <div
+                        class="p-3 bg-white border border-warning/30 rounded text-xs text-warning font-medium flex items-start">
+                        <i class="fa-solid fa-triangle-exclamation mt-0.5 mr-2"></i>
+                        <span>Kiểm định viên luôn tính khấu trừ một phần trăm nhỏ làm hao hụt an toàn để xưởng không bị
+                            lỗ khi ra bán thành phẩm.</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 08. Lưu trữ mủ -->
+            <section id="storage" class="section-card">
+                <div class="flex items-center mb-6">
+                    <div class="icon-box">
+                        <i class="fa-solid fa-warehouse text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900">8. Lưu trữ mủ</h3>
+                </div>
+                <p class="text-gray-600 mb-5 text-sm">Sau khi nhập kho, số mủ này được phân luồng vào bãi hoặc hồ dựa
+                    trên chủng loại.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div class="bg-white p-5 rounded-xl border border-gray-200">
+                        <div class="flex items-center mb-3">
+                            <i class="fa-solid fa-water text-primary-500 mr-2 text-lg"></i>
+                            <span class="text-gray-900 font-semibold">Hồ chứa (Mủ nước)</span>
+                        </div>
+                        <ul class="text-sm text-gray-600 space-y-2">
+                            <li class="flex items-start"><i
+                                    class="fa-solid fa-check text-success mt-1 mr-2 text-xs"></i> <span>Quản lý định mức
+                                    sức chứa tối đa của hồ</span></li>
+                            <li class="flex items-start"><i
+                                    class="fa-solid fa-check text-success mt-1 mr-2 text-xs"></i> <span>Giám sát trạng
+                                    thái tồn kho mốc thời gian thực</span></li>
+                        </ul>
+                    </div>
+                    <div class="bg-white p-5 rounded-xl border border-gray-200">
+                        <div class="flex items-center mb-3">
+                            <i class="fa-solid fa-boxes-stacked text-primary-500 mr-2 text-lg"></i>
+                            <span class="text-gray-900 font-semibold">Bãi tập kết (Mủ đông)</span>
+                        </div>
+                        <ul class="text-sm text-gray-600 space-y-2">
+                            <li class="flex items-start"><i
+                                    class="fa-solid fa-check text-success mt-1 mr-2 text-xs"></i> <span>Check ngưỡng trữ
+                                    lượng tối đa của các bãi</span></li>
+                            <li class="flex items-start"><i
+                                    class="fa-solid fa-check text-success mt-1 mr-2 text-xs"></i> <span>Cập nhật số
+                                    lượng mủ đông tách lô cụ thể</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 09. Sản xuất & Lương -->
+            <section id="production" class="section-card">
+                <div class="flex items-center mb-6">
+                    <div class="icon-box">
+                        <i class="fa-solid fa-coins text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900">9. Thành phẩm & Tính lương</h3>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h4 class="font-semibold mb-3 text-gray-900 border-b pb-2">Đầu ra Bán thành phẩm</h4>
+                        <ul class="space-y-3 text-sm text-gray-600">
+                            <li class="flex items-center justify-between"><span class="font-medium text-gray-800">Mủ
+                                    nước</span> <i class="fa-solid fa-arrow-right text-gray-300"></i> Latex</li>
+                            <li class="flex items-center justify-between"><span class="font-medium text-gray-800">Mủ
+                                    đông</span> <i class="fa-solid fa-arrow-right text-gray-300"></i> Mủ khối (Bành), Mủ
+                                tờ</li>
+                        </ul>
+                        <p class="text-xs text-gray-500 mt-3 pt-2">Quy khô khi chế biến thường cao hơn quy khô kiểm thử
+                            ban đầu do không còn tính bù hao.</p>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold mb-3 text-gray-900 border-b pb-2">Cơ cấu lương</h4>
+                        <div class="p-4 bg-gray-50 rounded-xl border border-gray-200 text-sm">
+                            <p class="mb-3 font-medium text-gray-800">Lương cơ bản = Σ (Sản lượng × Đơn giá loại)</p>
+                            <p class="text-xs text-gray-600 mb-3">
+                                Khi có kết quả sản lượng bán thành phẩm cuối kỳ, hệ thống sẽ chạy tác vụ <strong
+                                    class="text-primary-600">Bù Lương</strong> theo chênh lệch quy khô an toàn đã chiết
+                                khấu.
+                            </p>
+                            <div class="pt-3 border-t border-gray-200">
+                                <p class="text-xs text-gray-700 font-semibold mb-1"><i
+                                        class="fa-solid fa-calendar-check text-primary-500 mr-1"></i> Sự tách biệt chu
+                                    kỳ:</p>
+                                <p class="text-xs text-gray-500">Mặc dù cây có chu kỳ rụng lá và phải nghỉ cạo (khoảng
+                                    tháng 1-3), <strong>kỳ kế toán và tính lương của công nhân vẫn chạy đủ 12
+                                        tháng</strong> (từ tháng 1 đến tháng 12). Chu kỳ sinh học của cây và chu kỳ nhân
+                                    sự của con người được quản lý độc lập trên hệ thống.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 10. Tóm tắt luồng nghiệp vụ -->
+            <section id="workflow" class="section-card overflow-hidden ">
+                <div class="flex items-center justify-between mb-6">
+                    <div class="flex items-center">
+                        <div class="icon-box bg-primary-100">
+                            <i class="fa-solid fa-route text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-900">10. Tóm tắt luồng nghiệp vụ</h3>
+                            <p class="text-gray-500 text-sm mt-0.5">Quy trình hệ thống từ khai thác đến thành phẩm</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="overflow-x-auto -mx-6 md:mx-0">
+                    <table class="w-full text-sm">
+                        <thead>
+                            <tr>
+                                <th class="w-16 text-center">B.</th>
+                                <th class="w-48">Giai Đoạn</th>
+                                <th>Mô tả hoạt động chính</th>
+                                <th class="w-48">Kết Quả Bàn Giao</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="text-center font-semibold text-gray-400">01</td>
+                                <td class="font-medium text-gray-900">LẬP KẾ HOẠCH</td>
+                                <td>Xác định công suất → Cần thu bao nhiêu → Lập lịch phiên cho lô & tính số lần cạo.
+                                </td>
+                                <td class="text-primary-600 font-medium whitespace-nowrap">KH sản xuất</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center font-semibold text-gray-400">02</td>
+                                <td class="font-medium text-gray-900">KHAI THÁC</td>
+                                <td>Cạo mủ theo phần cây → Phân tách 4 loại (nước, chén, dây, tạp).</td>
+                                <td class="text-primary-600 font-medium whitespace-nowrap">Sản lượng (kg)</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center font-semibold text-gray-400">03</td>
+                                <td class="font-medium text-gray-900">CÂN TẠI GA</td>
+                                <td>Tập kết về Ga → Cân loại mủ theo công nhân → Chốt sổ CN / Nhóm / Đội.</td>
+                                <td class="text-primary-600 font-medium whitespace-nowrap">Sổ mủ vườn</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center font-semibold text-gray-400">04</td>
+                                <td class="font-medium text-gray-900">ĐIỀU XE CHỞ</td>
+                                <td>Đội booking → Xưởng điều xe xuống Ga chở về xưởng xử lý.</td>
+                                <td class="text-primary-600 font-medium whitespace-nowrap">Chuyến xe logs</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center font-semibold text-gray-400">05</td>
+                                <td class="font-medium text-gray-900">CÂN XƯỞNG</td>
+                                <td>Cân trạm nhập xưởng → Ghi nhận và đối chiếu chênh lệch với số liệu xuất từ Ga.</td>
+                                <td class="text-primary-600 font-medium whitespace-nowrap">Số liệu nhập kho</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center font-semibold text-gray-400">06</td>
+                                <td class="font-medium text-gray-900">KIỂM THỬ</td>
+                                <td>Khảo sát tỷ lệ Quy khô (DRC) thực tế và tính trừ hao mủ tạp / an toàn.</td>
+                                <td class="text-primary-600 font-medium whitespace-nowrap">DRC (%)</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center font-semibold text-gray-400">07</td>
+                                <td class="font-medium text-gray-900">LƯU TRỮ</td>
+                                <td>Phân loại vào các bãi / hồ → Cập nhật dashboard quản lý thể tích kho mốc real-time.
+                                </td>
+                                <td class="text-primary-600 font-medium whitespace-nowrap">Tồn kho lô mủ</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center font-semibold text-gray-400">08</td>
+                                <td class="font-medium text-gray-900">SẢN XUẤT</td>
+                                <td>Máy móc chế biến thành phẩm Latex, Khối, Tờ → Xác nhận được khối lượng quy khô thực.
+                                </td>
+                                <td class="text-primary-600 font-medium whitespace-nowrap">Bán thành phẩm</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center font-semibold text-gray-400">09</td>
+                                <td class="font-medium text-gray-900">LƯƠNG & BÙ</td>
+                                <td>Áp đơn giá vào sổ mủ → Thưởng bù lượng khối lượng khấu trừ sau khi có report TP.
+                                </td>
+                                <td class="text-primary-600 font-medium whitespace-nowrap">Bảng lương</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div
+                    class="mt-6 flex items-start text-xs text-gray-500 bg-gray-50 border border-gray-100 p-3 rounded-lg">
+                    <i class="fa-solid fa-building-user mt-0.5 mr-2 text-primary-400"></i>
+                    <span><strong>Luân chuyển nhân sự:</strong> Hệ thống lưu log bàn giao sản lượng theo thời gian để
+                        tính đúng ngày công nếu thợ 1 và 2 thay thế thu hoạch cùng lô trong tháng.</span>
+                </div>
+            </section>
+
+            <!-- 11. Truy xuất nguồn gốc -->
+            <section id="traceability" class="section-card overflow-hidden">
+                <div class="flex items-center justify-between mb-6">
+                    <div class="flex items-center">
+                        <div class="icon-box bg-success/10 text-success">
+                            <i class="fa-solid fa-clock-rotate-left text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-900">11. Truy xuất nguồn gốc (Hành trình ngược)</h3>
+                            <p class="text-gray-500 text-sm mt-0.5">Truy vết từ thành phẩm về tới gốc cây và người thu
+                                hoạch</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative py-4 border-l-2 border-gray-100 ml-6 pl-8 space-y-8">
+                    <!-- Step 1: Thành phẩm -->
+                    <div class="relative">
+                        <div
+                            class="absolute -left-[45px] top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-success flex items-center justify-center border-4 border-white shadow-sm z-10">
+                            <i class="fa-solid fa-box text-white text-xs"></i>
+                        </div>
+                        <div class="shadow-sm p-5 bg-white border border-gray-100 rounded-xl">
+                            <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Điểm bắt đầu
+                            </p>
+                            <h4 class="font-bold text-gray-900 mb-1">Sản Phẩm & Khách Hàng</h4>
+                            <p class="text-sm text-gray-600">Quét mã QR hoặc nhập mã Code trên khối/tờ mủ thành phẩm khi
+                                giao hàng (Ví dụ: Mủ khối SVR 3L, Latex).</p>
+                            <div
+                                class="mt-3 text-xs bg-gray-50 border border-gray-100 rounded p-2 text-gray-500 inline-block font-mono">
+                                Mã Lô SX: <span class="text-primary-600 font-bold">LX-202410-09A</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Sản xuất & Kho -->
+                    <div class="relative">
+                        <div
+                            class="absolute -left-[45px] top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-primary-100 flex items-center justify-center border-4 border-white shadow-sm z-10">
+                            <i class="fa-solid fa-industry text-primary-600 text-xs"></i>
+                        </div>
+                        <div class="shadow-sm p-5 bg-white border border-gray-100 rounded-xl">
+                            <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Giai đoạn Truy
+                                Vết</p>
+                            <h4 class="font-bold text-gray-900 mb-1">Lưu trữ & Sản Xuất</h4>
+                            <p class="text-sm text-gray-600">Hệ thống truy ra Mẻ sản xuất này được lấy nguyên liệu từ
+                                <strong>Hồ chứa / Bãi tập kết nào</strong>, đối chiếu với Phiếu nhập mủ tươi từ bộ phận
+                                cân xưởng.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Tập kết Ga -->
+                    <div class="relative">
+                        <div
+                            class="absolute -left-[45px] top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-primary-100 flex items-center justify-center border-4 border-white shadow-sm z-10">
+                            <i class="fa-solid fa-scale-balanced text-primary-600 text-xs"></i>
+                        </div>
+                        <div class="shadow-sm p-5 bg-white border border-gray-100 rounded-xl">
+                            <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Giai đoạn Vận
+                                Chuyển</p>
+                            <h4 class="font-bold text-gray-900 mb-1">Vận chuyển & Ga Thu Hoạch</h4>
+                            <p class="text-sm text-gray-600">Tìm ra xe biển số nào chở số mủ đó, xe được điều đi lấy mủ
+                                từ <strong>những Ga nào, thuộc Đội/Nhóm nào</strong> trong cùng ngày hôm đó.</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 4: Gốc rễ -->
+                    <div class="relative">
+                        <div
+                            class="absolute -left-[45px] top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-primary-600 flex items-center justify-center border-4 border-white shadow-sm z-10">
+                            <i class="fa-solid fa-tree text-white text-xs"></i>
+                        </div>
+                        <div class="shadow-sm p-5 bg-primary-50 border border-primary-200 rounded-xl">
+                            <p class="text-[10px] font-bold text-primary-500 uppercase tracking-widest mb-1">Nguồn Gốc
+                                (Origin)</p>
+                            <h4 class="font-bold text-primary-900 mb-2">Gốc Cây & Người Thu Hoạch</h4>
+                            <p class="text-sm text-primary-800 mb-2">Từ sổ mủ tại Ga, phát hiện chính xác nguồn gốc
+                                nguyên liệu:</p>
+                            <ul class="text-sm text-primary-700 space-y-1.5 ml-1">
+                                <li class="flex"><i class="fa-solid fa-caret-right text-primary-400 mt-1 mr-2"></i>
+                                    <span><strong class="text-primary-900">Người khai thác:</strong> Tên công nhân, mã
+                                        định danh thực hiện ca đó.</span>
+                                </li>
+                                <li class="flex"><i class="fa-solid fa-caret-right text-primary-400 mt-1 mr-2"></i>
+                                    <span><strong class="text-primary-900">Vị trí địa lý:</strong> Lô số mấy, Phần cây
+                                        số mấy trên bản đồ vườn.</span>
+                                </li>
+                                <li class="flex"><i class="fa-solid fa-caret-right text-primary-400 mt-1 mr-2"></i>
+                                    <span><strong class="text-primary-900">Thông tin sinh học:</strong> Dòng vô tính
+                                        (giống), năm trồng, tuổi thọ hiện tại...</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Footer -->
+            <footer class="mt-8 text-center text-gray-400 text-xs pb-12">
+                <p>&copy; 2024 Hệ Thống Quản Lý Cao Su. Tất cả quyền được bảo lưu. Minimal Design UI.</p>
+            </footer>
+        </main>
+    </div>
+
+    <script>
+        // Set up intersection observer for active sidebar links
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.sidebar-link');
+
+        // Handling scroll events to update active state
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').substring(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Smooth scroll for anchors
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 24,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
